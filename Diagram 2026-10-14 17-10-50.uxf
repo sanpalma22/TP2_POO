@@ -1,0 +1,53 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>370</x><y>270</y><w>230</w><h>190</h></coordinates><panel_attributes>Veterinario
+--
+- matricula: String
+- especialidad: String
+- horarios: Map&lt;String, FranjaHoraria&gt;
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>110</x><y>0</y><w>210</w><h>190</h></coordinates><panel_attributes>Personal
+--
+- nombre: String
+- apellido: String
+- documento: String
+- telefono: int
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>940</x><y>50</y><w>210</w><h>190</h></coordinates><panel_attributes>Duenio
+--
+- nombre: String
+- apellido: String
+- documento: String
+- telefono: int
+- email: String
+- planSalud: PlanSaludAnimal
+- mascotas: Mascota[ ]
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>940</x><y>400</y><w>210</w><h>190</h></coordinates><panel_attributes>Mascota
+--
+- nombre: String
+- especie: 
+- raza: String
+- sexo: Sexo
+- FechaNacimiento: LocalDate
+- peso: int
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>710</x><y>720</y><w>210</w><h>110</h></coordinates><panel_attributes>Perro
+--
+- numeroChip: String
+- tamaño: Tamaño
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>940</x><y>720</y><w>210</w><h>110</h></coordinates><panel_attributes>Gato
+--
+- habitat: InteriorExterior
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1170</x><y>720</y><w>210</w><h>110</h></coordinates><panel_attributes>Ave
+--
+- volador: boolean
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>100</x><y>270</y><w>230</w><h>190</h></coordinates><panel_attributes>Recepcionista
+--
++ asignarTurno()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>140</x><y>590</y><w>210</w><h>190</h></coordinates><panel_attributes>Turno
+--
+- mascota: Mascota
+- veterinario: Veterinario
+- fecha: LocalDate
+- hora: LocalTime
+- tipo: TipoAtencion
+- duracion: int
+- estado: EstadoTurno
+- urgente: boolean</panel_attributes><additional_attributes></additional_attributes></element></diagram>
