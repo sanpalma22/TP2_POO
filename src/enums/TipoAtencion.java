@@ -1,3 +1,5 @@
+package enums;
+
 public enum TipoAtencion {
     CONSULTA_GRAL(30),
     VACUNACION(15),
@@ -13,4 +15,4 @@ public enum TipoAtencion {
     }
 }
 
-}
+
