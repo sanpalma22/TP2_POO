@@ -1,4 +1,6 @@
+package personas;
 import enums.TipoAtencion;
+import personas.FranjaHoraria;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -6,15 +8,16 @@ import java.time.LocalTime;
 import java.util.Map;
 import java.util.Set;
 
-public class Veterinario {
+public class Veterinario extends Persona {
     private String matricula;
     private String especialidad;
     private Map<DayOfWeek, FranjaHoraria> horarios;
 
-    public Veterinario(String matricula, String especialidad, Map<DayOfWeek, FranjaHoraria> horarios){
+    public Veterinario(String nombre, String apellido, String documento, int telefono, String matricula, String especialidad, Map<DayOfWeek, FranjaHoraria> horarios ){
         this.matricula = matricula;
         this.especialidad = especialidad;
         this.horarios = horarios;
+        super(nombre, apellido, documento, telefono);
     }
 
     public void indicarTratamiento(){

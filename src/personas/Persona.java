@@ -1,9 +1,11 @@
-public abstract class Personal {
+package personas;
+//CAMBIAR EL NOMBRE DE PERSONAL A PERSONA Y CONECTAR A LA CLASE PERSONA CON LA DE DUENIO
+public abstract class Persona {
     private String nombre;
     private String apellido;
     private String documento;
     private int telefono;
-    public Personal (String nombre, String apellido, String documento, int telefono){
+    public Persona (String nombre, String apellido, String documento, int telefono){
         this.nombre = nombre;
         this.apellido = apellido;
         this.documento = documento;

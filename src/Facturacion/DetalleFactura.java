@@ -1,4 +1,4 @@
-package model.Facturacion;
+package Facturacion;
 
 public class DetalleFactura {
 }

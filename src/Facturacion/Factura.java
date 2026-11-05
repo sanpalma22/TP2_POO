@@ -1,4 +1,4 @@
-package model.Facturacion;
+package Facturacion;
 
 import enums.MetodoPago;
 

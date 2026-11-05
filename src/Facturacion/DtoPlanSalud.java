@@ -1,4 +1,4 @@
-package model.Facturacion;
+package Facturacion;
 
 public class DtoPlanSalud implements EstrategiaDtoRec {
     private final double porcentajeDto = 0.15;

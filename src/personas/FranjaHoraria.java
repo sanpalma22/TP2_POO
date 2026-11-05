@@ -1,3 +1,5 @@
+package personas;
+
 import java.time.LocalTime;
 public class FranjaHoraria {
     private LocalTime horaEntrada;
