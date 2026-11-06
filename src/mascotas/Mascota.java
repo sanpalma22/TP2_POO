@@ -1,7 +1,6 @@
-package Mascotas;
+package mascotas;
 
-import Atencion.AplicacionVacuna;
-import Atencion.Vacuna;
+import atencion.Vacuna;
 import enums.Especie;
 import enums.Sexo;
 import personas.Duenio;
@@ -21,11 +20,10 @@ public abstract class Mascota {
     private HistoriaClinica historiaClinica;
     private Duenio duenio;
 
-    public Mascota (Duenio duenio, String nombre, Especie especie, String raza, Sexo sexo, LocalDate fechaNacimiento, int peso){
+    public Mascota (Duenio duenio, String nombre, String raza, Sexo sexo, LocalDate fechaNacimiento, int peso){
         this.idMascota = ++ contador;
         this.duenio = duenio;
         this.nombre = nombre;
-        this.especie = especie;
         this.raza = raza;
         this.sexo = sexo;
         this.fechaNacimiento = fechaNacimiento;
@@ -40,8 +38,6 @@ public abstract class Mascota {
     public void cambiarDuenio(Duenio duenio){
         this.duenio = duenio;
     }
-
-    public abstract boolean esAptaParaVacuna();
 
     public int getIdMascota() {
         return idMascota;

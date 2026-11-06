@@ -1,21 +1,21 @@
-package Persistencia;
+package repositorios;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
-import Atencion.AplicacionVacuna;
-import Atencion.Consulta;
-import Atencion.Tratamiento;
-import Atencion.Vacuna;
-import Mascotas.Mascota;
-import Stock.Insumo;
+import atencion.AplicacionVacuna;
+import atencion.Consulta;
+import atencion.Tratamiento;
+import atencion.Vacuna;
+import mascotas.Mascota;
+import stock.Insumo;
 
 
 public class HistoriaClinicaRepository {
-    private static final String RUTA_CONSULTAS = "historiaClinica.txt";
-    private static final String RUTA_TRATAMIENTOS = "tratamientos.txt";
-    private static final String RUTA_VACUNASAPLICACION = "vacunasAplicacion.txt";
+    private static final String RUTA_CONSULTAS = "datos/historiaClinica.txt";
+    private static final String RUTA_TRATAMIENTOS = "datos/tratamientos.txt";
+    private static final String RUTA_VACUNASAPLICACION = "datos/vacunasAplicacion.txt";
 
     public void guardarConsulta(int idMascota, Consulta c) {
         try (BufferedWriter bwC = new BufferedWriter(new FileWriter(RUTA_CONSULTAS, true));

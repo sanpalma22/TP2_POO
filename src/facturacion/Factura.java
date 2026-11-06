@@ -1,6 +1,6 @@
-package Facturacion;
+package facturacion;
 
-import Atencion.AplicacionVacuna;
+import atencion.AplicacionVacuna;
 import enums.MetodoPago;
 import personas.Duenio;
 
@@ -49,7 +49,6 @@ public class Factura {
         } else if (total>subtotal) {
             this.cargoAplicado=total-subtotal;
         }
-        this.total=montoFinal;
     }
 
     public void imprimirFactura(){

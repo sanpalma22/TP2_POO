@@ -1,4 +1,4 @@
-package Atencion;
+package atencion;
 
 import enums.Especie;   // ajusten al paquete donde tengan el enum
 import java.time.LocalDate;

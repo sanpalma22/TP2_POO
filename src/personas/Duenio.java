@@ -1,6 +1,6 @@
 package personas;
 
-import Mascotas.Mascota;
+import mascotas.Mascota;
 
 import java.util.ArrayList;
 import java.util.List;

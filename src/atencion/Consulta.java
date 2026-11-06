@@ -1,4 +1,4 @@
-package Atencion;
+package atencion;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

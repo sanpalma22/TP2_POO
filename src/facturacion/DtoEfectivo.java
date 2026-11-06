@@ -1,4 +1,4 @@
-package Facturacion;
+package facturacion;
 
 public class DtoEfectivo implements EstrategiaDtoRec {
     private final double porcentajeDto = 0.1;

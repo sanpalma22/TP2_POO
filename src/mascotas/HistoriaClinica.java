@@ -1,7 +1,7 @@
-package Mascotas;
+package mascotas;
 
 
-import Atencion.Consulta;
+import atencion.Consulta;
 
 import java.util.ArrayList;
 import java.util.List;

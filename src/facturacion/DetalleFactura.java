@@ -1,7 +1,7 @@
-package Facturacion;
+package facturacion;
 
 import enums.TipoAtencion;
-import inventario.Insumo;
+import stock.Insumo;
 
 public class DetalleFactura {
     private int nro;

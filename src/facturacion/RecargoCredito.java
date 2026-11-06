@@ -1,4 +1,4 @@
-package Facturacion;
+package facturacion;
 
 public class RecargoCredito implements EstrategiaDtoRec {
     private final double porcentajeRecargo = 0.08;

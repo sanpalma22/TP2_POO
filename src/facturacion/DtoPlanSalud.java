@@ -1,4 +1,4 @@
-package Facturacion;
+package facturacion;
 
 public class DtoPlanSalud implements EstrategiaDtoRec {
     private final double porcentajeDto = 0.15;

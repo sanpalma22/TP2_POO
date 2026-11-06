@@ -1,4 +1,6 @@
-package Stock;
+package stock;
+
+import excepciones.StockInsuficienteException;
 
 import java.util.ArrayList;
 import java.util.Comparator;

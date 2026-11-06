@@ -1,6 +1,6 @@
-package Atencion;
+package atencion;
 
-import Stock.Insumo;   // ajusten al paquete donde tengan Stock.Insumo
+import stock.Insumo;   // ajusten al paquete donde tengan Stock.Insumo
 
 
 public class Tratamiento {
@@ -21,7 +21,7 @@ public class Tratamiento {
         medicamento.descontarStock();
     }*/
 
-    public Stock.Insumo getMedicamento() { return medicamento; }
+    public stock.Insumo getMedicamento() { return medicamento; }
     public String getDosis() { return dosis; }
     public String getFrecuencia() { return frecuencia; }
     public String getDuracion() { return duracion; }
