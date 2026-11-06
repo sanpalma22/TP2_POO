@@ -35,6 +35,7 @@ public class Consulta {
         this.tratamientos = new ArrayList<Tratamiento>();
         this.vacunas = new ArrayList<AplicacionVacuna>();
         this.observaciones = observaciones;
+        if (idConsulta > contador) contador = idConsulta;
     }
 
     public LocalDate getFecha(){
@@ -73,6 +74,11 @@ public class Consulta {
         return observaciones;
     }
 
-    public void agregarTratamiento(Tratamiento t) { tratamientos.add(t); }
+    public void agregarTratamiento(Tratamiento t) {
+        if (pesoDia == 0){
+            throw new IllegalArgumentException("Sin peso no hay medicamento");
+        }
+        tratamientos.add(t);
+    }
     public void agregarAplicacionVacuna(AplicacionVacuna v) { vacunas.add(v); }
 }

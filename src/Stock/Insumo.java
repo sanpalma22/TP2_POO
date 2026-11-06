@@ -1,12 +1,12 @@
 package Stock;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Insumo {
     private String codigo;
     private String nombre;
-    private int stockActual;
     private int stockMinimo;
     private double costo;
     private double precioVenta;
@@ -21,29 +21,32 @@ public class Insumo {
         this.costo = costo;
         this.precioVenta = precioVenta;
         this.proveedor = proveedor;
-        this.stockActual = 0;
         this.lotes = new ArrayList<>();
     }
 
     // CU20: registrar ingreso de lote
-    /*public void agregarLote(Lote l) {
+    public void agregarLote(Lote l) {
         if (l.estaVencido()) {
             throw new IllegalArgumentException("No se puede ingresar un lote vencido");
         }
         lotes.add(l);
-        stockActual += l.getStockLote();
-    }*/
+    }
+
+    //cuando el repository reconstruye un lote que ya estaba guardado. No valida nada, solo lo agrega
+    public void cargarLote(Lote l) {
+        lotes.add(l);
+    }
 
     // Experto en Información: Stock.Insumo conoce sus lotes
-    /*public Lote loteProximoAVencer() {
+    public Lote loteProximoAVencer() {
         return lotes.stream()
                 .filter(l -> !l.estaVencido() && l.getStockLote() > 0)
-                .min(Comparator.comparing(Lote::getFechaVto))
+                .min(Comparator.naturalOrder())
                 .orElse(null);
-    }*/
+    }
 
     // CU06: descuenta por FIFO, saltando lotes vencidos
-    /*public void descontarStock(int cantidad) throws StockInsuficienteException {
+    public void descontarStock(int cantidad) throws StockInsuficienteException {
         if (cantidad > stockDisponible()) {
             throw new StockInsuficienteException(
                     "Stock insuficiente de " + nombre + ": disponible " + stockDisponible());
@@ -55,35 +58,33 @@ public class Insumo {
             l.descontarCantidad(aDescontar);
             restante -= aDescontar;
         }
-        stockActual -= cantidad;
-    }*/
+    }
 
     // Solo cuenta lotes no vencidos
-    /*public int stockDisponible() {
+    public int stockDisponible() {
         int total = 0;
         for (Lote l : lotes) {
             if (!l.estaVencido()) total += l.getStockLote();
         }
         return total;
-    }*/
-
+    }
     // Experto en Información: tiene stock actual y mínimo
     public boolean estaEnStockBajo() {
-        return stockActual <= stockMinimo;
+        return stockDisponible() <= stockMinimo;
     }
 
     public String getCodigo() { return codigo; }
     public String getNombre() { return nombre; }
-    public int getStockActual() { return stockActual; }
+    public int getStockActual() { return stockDisponible(); }
     public int getStockMinimo() { return stockMinimo; }
     public double getCosto() { return costo; }
     public double getPrecioVenta() { return precioVenta; }
-    //public Proveedor getProveedor() { return proveedor; }
-    //public List<Lote> getLotes() { return lotes; }
+    public Proveedor getProveedor() { return proveedor; }
+    public List<Lote> getLotes() { return lotes; }
 
     // Formato: codigo;nombre;stockMinimo;costo;precioVenta;cuitProveedor
-    /*public String toLinea() {
+    public String toLinea() {
         return codigo + ";" + nombre + ";" + stockMinimo + ";" + costo + ";"
                 + precioVenta + ";" + proveedor.getCuit();
-    }*/
+    }
 }

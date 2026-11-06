@@ -13,7 +13,7 @@ public class Duenio extends Persona {
         super(nombre, apellido, documento, telefono);
         this.email = email;
         this.planSalud = planSalud;
-        this.mascotas = new ArrayList<Mascota>();
+        this.mascotas = new ArrayList<>();
     }
 
 }

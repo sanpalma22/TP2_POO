@@ -1,5 +1,6 @@
 package Facturacion;
 
+import Atencion.AplicacionVacuna;
 import enums.MetodoPago;
 import personas.Duenio;
 
@@ -12,6 +13,7 @@ public class Factura {
     private static int contFacturas;
     private LocalDate fecha;
     private List<DetalleFactura> lineasFactura;
+    private List<AplicacionVacuna> vacunasAplicadas;
     private MetodoPago metodoPago;
     private double subtotal;
     private double dtoAplicado;
@@ -21,10 +23,12 @@ public class Factura {
 
     public Factura(String numero, LocalDate fecha, MetodoPago metodoPago, Duenio cliente) {
         this.numero = generarNroFactura();
+        contFacturas++;
         this.fecha = LocalDate.now();
         this.cliente = cliente;
         this.metodoPago = metodoPago;
         this.lineasFactura = new ArrayList<>();
+        subtotal();
 
     }
     private String generarNroFactura(){
@@ -45,6 +49,7 @@ public class Factura {
         } else if (total>subtotal) {
             this.cargoAplicado=total-subtotal;
         }
+        this.total=montoFinal;
     }
 
     public void imprimirFactura(){

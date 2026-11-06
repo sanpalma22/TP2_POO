@@ -1,7 +1,10 @@
 package Mascotas;
 
+import Atencion.AplicacionVacuna;
+import Atencion.Vacuna;
 import enums.Especie;
 import enums.Sexo;
+import personas.Duenio;
 
 import java.time.LocalDate;
 //HAY QUE AGREGAR HISTORIACLINICA COMO ATRIBUTO EN EL DIAGRAMA DE CLASE
@@ -16,33 +19,41 @@ public abstract class Mascota {
     private LocalDate fechaNacimiento;
     private int peso;
     private HistoriaClinica historiaClinica;
-    private int id_duenio;
-    public Mascota (int id_duenio, String nombre, Especie especie, String raza, Sexo sexo, LocalDate fechaNacimiento, int peso, HistoriaClinica historiaClinica){
+    private Duenio duenio;
+
+    public Mascota (Duenio duenio, String nombre, Especie especie, String raza, Sexo sexo, LocalDate fechaNacimiento, int peso){
         this.idMascota = ++ contador;
-        this.id_duenio = id_duenio;
+        this.duenio = duenio;
         this.nombre = nombre;
         this.especie = especie;
         this.raza = raza;
         this.sexo = sexo;
         this.fechaNacimiento = fechaNacimiento;
         this.peso = peso;
-        this.historiaClinica = new HistoriaClinica();
+        this.historiaClinica = new HistoriaClinica(this);
     }
 
     public HistoriaClinica getHistoriaClinica(){
         return historiaClinica;
-    };
+    }
 
-    public void cambiarDuenio(int idDuenio){
-        this.id_duenio = idDuenio;
-    };
+    public void cambiarDuenio(Duenio duenio){
+        this.duenio = duenio;
+    }
 
-    public boolean esAptaParaVacuna(){
-        //completar
-        return true;
-    };
+    public abstract boolean esAptaParaVacuna();
 
     public int getIdMascota() {
         return idMascota;
     }
+
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public Especie getEspecie() {
+        return especie;
+    }
+
+    public abstract boolean esAptaParaVacuna(Vacuna v, LocalDate fecha);
 }

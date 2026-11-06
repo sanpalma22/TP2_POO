@@ -13,10 +13,10 @@ public class Veterinario extends Persona {
     private Map<DayOfWeek, FranjaHoraria> horarios;
 
     public Veterinario(String nombre, String apellido, String documento, int telefono, String matricula, String especialidad, Map<DayOfWeek, FranjaHoraria> horarios ){
+        super(nombre, apellido, documento, telefono);
         this.matricula = matricula;
         this.especialidad = especialidad;
         this.horarios = horarios;
-        super(nombre, apellido, documento, telefono);
     }
 
     public void indicarTratamiento(){
