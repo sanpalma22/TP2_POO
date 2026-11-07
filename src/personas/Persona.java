@@ -1,11 +1,12 @@
 package personas;
-//CAMBIAR EL NOMBRE DE PERSONAL A PERSONA Y CONECTAR A LA CLASE PERSONA CON LA DE DUENIO
+
 public abstract class Persona {
-    private String nombre;
-    private String apellido;
+    protected String nombre;
+    protected String apellido;
     private String documento;
-    private int telefono;
-    public Persona (String nombre, String apellido, String documento, int telefono){
+    private String telefono;
+
+    public Persona (String nombre, String apellido, String documento, String telefono){
         this.nombre = nombre;
         this.apellido = apellido;
         this.documento = documento;
@@ -13,34 +14,37 @@ public abstract class Persona {
     }
 
     public String getNombre() {
+
         return nombre;
     }
 
     public void setNombre(String nombre) {
+
         this.nombre = nombre;
     }
 
     public String getApellido() {
+
         return apellido;
     }
 
     public void setApellido(String apellido) {
+
         this.apellido = apellido;
     }
 
     public String getDocumento() {
+
         return documento;
     }
 
-    public void setDocumento(String documento) {
-        this.documento = documento;
-    }
+    public String getTelefono() {
 
-    public int getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
+
         this.telefono = telefono;
     }
 }
