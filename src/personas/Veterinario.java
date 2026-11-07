@@ -4,6 +4,7 @@ import enums.TipoAtencion;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,9 +20,6 @@ public class Veterinario extends Persona {
         this.horarios = horarios;
     }
 
-    public void indicarTratamiento(){
-    }
-
     public boolean horarioDisponible(LocalDate fecha, LocalTime hora, TipoAtencion tipoatencion){
         Set<DayOfWeek> dias = this.horarios.keySet();
         if (dias.contains(fecha.getDayOfWeek())) {
@@ -34,5 +32,19 @@ public class Veterinario extends Persona {
         return false;
     }
 
+    public String getMatricula() {
+        return matricula;
+    }
 
+    public String getEspecialidad() {
+        return especialidad;
+    }
+
+    public Map<DayOfWeek, FranjaHoraria> getHorarios() {
+        return horarios;
+    }
+
+    public String toLinea(){
+        return "VETERINARIO;" + getDocumento() + ";" +nombre + ";" +apellido+ ";" + getTelefono() + ";" + matricula + ";" +especialidad;
+    }
 }

@@ -23,5 +23,13 @@ public class FranjaHoraria {
             throw new IllegalArgumentException("A esta hora el veterinario no esta disponible");
         }
     }
+
+    public LocalTime getHoraEntrada() {
+        return horaEntrada;
+    }
+
+    public LocalTime getHoraSalida() {
+        return horaSalida;
+    }
 }
 
