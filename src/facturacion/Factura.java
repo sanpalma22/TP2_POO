@@ -2,7 +2,9 @@ package facturacion;
 
 import atencion.AplicacionVacuna;
 import enums.MetodoPago;
+import enums.TipoAtencion;
 import personas.Duenio;
+import stock.Insumo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -10,10 +12,9 @@ import java.util.List;
 
 public class Factura {
     private String numero;
-    private static int contFacturas;
+    private static int contFacturas = 1;
     private LocalDate fecha;
-    private List<DetalleFactura> lineasFactura;
-    private List<AplicacionVacuna> vacunasAplicadas;
+    private ArrayList<DetalleFactura> lineasFactura;
     private MetodoPago metodoPago;
     private double subtotal;
     private double dtoAplicado;
@@ -21,15 +22,28 @@ public class Factura {
     private double total;
     private Duenio cliente;
 
-    public Factura(String numero, LocalDate fecha, MetodoPago metodoPago, Duenio cliente) {
+    public Factura(MetodoPago metodoPago, Duenio cliente) {
         this.numero = generarNroFactura();
-        contFacturas++;
         this.fecha = LocalDate.now();
         this.cliente = cliente;
         this.metodoPago = metodoPago;
         this.lineasFactura = new ArrayList<>();
-        subtotal();
+    }
 
+    public void agregarLineaFactura(TipoAtencion servicio) {
+        if (servicio != null) {
+            int nroItem = this.lineasFactura.size() + 1;
+            DetalleFactura detalle = new DetalleFactura(nroItem, servicio);
+            this.lineasFactura.add(detalle);
+        }
+    }
+
+    public void agregarLineaFactura(Insumo producto, int cantidad) {
+        if (producto != null && cantidad > 0) {
+            int nroItem = this.lineasFactura.size() + 1;
+            DetalleFactura detalle = new DetalleFactura(nroItem, producto, cantidad);
+            this.lineasFactura.add(detalle);
+        }
     }
     private String generarNroFactura(){
         String nro=String.format("%05d",contFacturas);
@@ -42,23 +56,66 @@ public class Factura {
             this.subtotal+=detalle.getImporte();
         }
     }
-    private void aplicarDtoRecargo(EstrategiaDtoRec estrategia){
-        this.total = estrategia.calcularMontoFinal(subtotal);
-        if(total<subtotal){
-            this.dtoAplicado=subtotal-total;
-        } else if (total>subtotal) {
-            this.cargoAplicado=total-subtotal;
+    private void aplicarDtoRecargo(){
+        EstrategiaDtoRec estrategia;
+        if (cliente.tienePlanSalud()) {
+            estrategia=new DtoPlanSalud();
+        } else if (metodoPago == MetodoPago.EFECTIVO) {
+            estrategia = new DtoEfectivo();
+        } else if (metodoPago == MetodoPago.CREDITO) {
+            estrategia = new RecargoCredito();
+        }else estrategia=null;
+        if(estrategia!=null) {
+            this.total = estrategia.calcularMontoFinal(subtotal);
+            if (total < subtotal) {
+                this.dtoAplicado = subtotal - total;
+            } else if (total > subtotal) {
+                this.cargoAplicado = total - subtotal;
+            }
         }
     }
+    public void cerrarFactura(){
+        subtotal();
+        aplicarDtoRecargo();
+    }
 
-    public void imprimirFactura(){
-        System.out.println("Nro de factura: " + numero);
-        System.out.println("Fecha: "+fecha);
-        System.out.println("Cliente: "+cliente.getNombre() + " | " + cliente.getDocumento());
-        System.out.println("Metodo de pago: "+metodoPago.getNombre());
-        for (DetalleFactura detalle: lineasFactura){
-            this.subtotal+=detalle.getImporte();
-        }
-        System.out.println();
+    public Duenio getCliente() {
+        return cliente;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public double getCargoAplicado() {
+        return cargoAplicado;
+    }
+
+    public double getDtoAplicado() {
+        return dtoAplicado;
+    }
+
+    public double getSubtotal() {
+        return subtotal;
+    }
+
+    public MetodoPago getMetodoPago() {
+        return metodoPago;
+    }
+
+    public ArrayList<DetalleFactura> getLineasFactura() {
+        return lineasFactura;
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public static int getContFacturas() {
+        return contFacturas;
+    }
+
+    public String getNumero() {
+        return numero;
     }
 }
