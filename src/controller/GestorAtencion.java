@@ -5,14 +5,16 @@ import model.mascotas.*;
 import model.personas.*;
 import model.stock.*;
 import excepciones.*;
+import repositorios.HistoriaClinicaRepository;
+
 import java.time.LocalDate;
 
 public class GestorAtencion {
 
-    private Object historiaRepo; // Reemplazaremos Object por el tipo real después
+    private HistoriaClinicaRepository historiaRepo;
     private Object gestorStockFacturacion;
 
-    public GestorAtencion(Object historiaRepo, Object gestorStockFacturacion) {
+    public GestorAtencion(HistoriaClinicaRepository historiaRepo, Object gestorStockFacturacion) {
         this.historiaRepo = historiaRepo;
         this.gestorStockFacturacion = gestorStockFacturacion;
     }
