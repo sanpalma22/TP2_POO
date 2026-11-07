@@ -4,12 +4,12 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
-import atencion.AplicacionVacuna;
-import atencion.Consulta;
-import atencion.Tratamiento;
-import atencion.Vacuna;
-import mascotas.Mascota;
-import stock.Insumo;
+import model.atencion.AplicacionVacuna;
+import model.atencion.Consulta;
+import model.atencion.Tratamiento;
+import model.atencion.Vacuna;
+import model.mascotas.Mascota;
+import model.stock.Insumo;
 
 
 public class HistoriaClinicaRepository {
