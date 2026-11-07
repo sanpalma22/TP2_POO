@@ -31,6 +31,7 @@ public abstract class Mascota {
         this.historiaClinica = new HistoriaClinica(this);
     }
 
+    public abstract String toLinea();
     public HistoriaClinica getHistoriaClinica(){
         return historiaClinica;
     }
@@ -54,5 +55,25 @@ public abstract class Mascota {
     public abstract boolean esAptaParaVacuna(Vacuna v, LocalDate fecha);
 
     public void setPeso(int pesoDia) {
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getRaza() {
+        return raza;
+    }
+
+    public Sexo getSexo() {
+        return sexo;
+    }
+
+    public int getPeso() {
+        return peso;
+    }
+
+    public Duenio getDuenio() {
+        return duenio;
     }
 }

@@ -21,4 +21,9 @@ public class Conejo extends Mascota{
     public boolean esAptaParaVacuna(Vacuna v, LocalDate fecha){
         return (v.cumpleEdadMinima(this.getFechaNacimiento(), fecha) && v.getEspeciesAplicables().contains(Especie.CONEJO));
     };
+    public String toLinea() {
+        return "CONEJO;" + getIdMascota() + ";" + getDuenio().getDocumento() + ";" + getNombre() + ";" +
+                getRaza() + ";" + getSexo() + ";" + getFechaNacimiento() + ";" + getPeso() + ";" +
+                numeroChip + ";" + tamano;
+    }
 }

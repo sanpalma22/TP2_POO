@@ -19,4 +19,10 @@ public class Ave extends Mascota{
     public boolean esAptaParaVacuna(Vacuna v, LocalDate fecha){
         return (v.cumpleEdadMinima(this.getFechaNacimiento(), fecha) && v.getEspeciesAplicables().contains(Especie.AVE));
     };
+    @Override
+    public String toLinea() {
+        return "AVE;" + getIdMascota() + ";" + getDuenio().getDocumento() + ";" + getNombre() + ";" +
+                getRaza() + ";" + getSexo() + ";" + getFechaNacimiento() + ";" + getPeso() + ";" +
+                volador;
+    }
 }

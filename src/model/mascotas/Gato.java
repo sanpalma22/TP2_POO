@@ -18,4 +18,9 @@ public class Gato extends Mascota{
     public boolean esAptaParaVacuna(Vacuna v, LocalDate fecha){
         return (v.cumpleEdadMinima(this.getFechaNacimiento(), fecha) && v.getEspeciesAplicables().contains(Especie.GATO));
     };
+    public String toLinea() {
+        return "GATO;" + getIdMascota() + ";" + getDuenio().getDocumento() + ";" + getNombre() + ";" +
+                getRaza() + ";" + getSexo() + ";" + getFechaNacimiento() + ";" + getPeso() + ";" +
+                habitat;
+    }
 }

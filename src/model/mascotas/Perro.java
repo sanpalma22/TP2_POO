@@ -22,4 +22,9 @@ public class Perro extends Mascota{
     public boolean esAptaParaVacuna(Vacuna v, LocalDate fecha){
         return (v.cumpleEdadMinima(this.getFechaNacimiento(), fecha) && v.getEspeciesAplicables().contains(Especie.PERRO));
     };
+    public String toLinea() {
+        return "PERRO;" + getIdMascota() + ";" + getDuenio().getDocumento() + ";" + getNombre() + ";" +
+                getRaza() + ";" + getSexo() + ";" + getFechaNacimiento() + ";" + getPeso() + ";" +
+                numeroChip + ";" + tamano;
+    }
 }
