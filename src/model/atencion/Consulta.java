@@ -1,5 +1,6 @@
 package model.atencion;
 
+import excepciones.PesoNoRegistradoException;
 import model.personas.Veterinario;
 
 import java.time.LocalDate;

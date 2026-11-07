@@ -1,5 +1,6 @@
 package model.atencion;
 
+import excepciones.StockInsuficienteException;
 import model.stock.Insumo;   // ajusten al paquete donde tengan Stock.Insumo
 
 
@@ -16,10 +17,9 @@ public class Tratamiento {
         this.duracion = duracion;
     }
 
-    // Se llama al confirmar la consulta, no al indicar el tratamiento (regla de negocio)
-    /*public void utilizarInsumo() {
-        medicamento.descontarStock();
-    }*/
+    public void utilizarInsumo(int cantidad) throws StockInsuficienteException {
+        medicamento.descontarStock(cantidad);
+    }
 
     public model.stock.Insumo getMedicamento() { return medicamento; }
     public String getDosis() { return dosis; }

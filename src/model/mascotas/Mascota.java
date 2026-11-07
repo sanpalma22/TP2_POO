@@ -52,4 +52,7 @@ public abstract class Mascota {
     }
 
     public abstract boolean esAptaParaVacuna(Vacuna v, LocalDate fecha);
+
+    public void setPeso(int pesoDia) {
+    }
 }
