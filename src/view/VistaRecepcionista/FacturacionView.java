@@ -14,14 +14,10 @@ import java.util.Scanner;
 
 public class FacturacionView {
     private static FacturacionController controller;
-    private static Scanner scanner;
-    private static DuenioRepository repoDuenio;
+    private static Scanner scanner= new Scanner(System.in);
+    private static DuenioRepository repoDuenio=new DuenioRepository();
     private static InsumoRepository repoInsumos;
 
-    public FacturacionView() {
-        this.scanner = new Scanner(System.in);
-        this.repoDuenio=new DuenioRepository();
-    }
 
     public static void generarFactura() {
         System.out.println("Nueva factura");

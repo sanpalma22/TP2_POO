@@ -9,11 +9,11 @@ import model.stock.Insumo;
 
 public class VistaVeterinario {
     private GestorAtencion gestor;
-    private Scanner scanner;
+    private Scanner scanner= new Scanner(System.in);
 
     public VistaVeterinario(GestorAtencion gestor) {
         this.gestor = gestor;
-        this.scanner = new Scanner(System.in);
+
     }
 
     public void mostrarMenu() {

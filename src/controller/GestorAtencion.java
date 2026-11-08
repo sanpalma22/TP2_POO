@@ -64,10 +64,5 @@ public class GestorAtencion {
             System.out.println("  .........................");
         }
 
-
-        System.out.println("--- Notas Rectificatorias ---");
-        for (NotaRectificatoria n : hc.getNotas()) {
-            System.out.println("- Fecha: " + n.getFecha() + " | Corrección: " + n.getTexto());
-        }
     }
 }
