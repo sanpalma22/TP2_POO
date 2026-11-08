@@ -49,7 +49,25 @@ public class GestorAtencion {
 
     public void finalizarConsulta(Consulta consulta) {
         System.out.println("Consulta finalizada. Procediendo a descontar stock...");
+    }
+
+    // CU 17: Consultar Historia Clínica
+    public void mostrarHistoriaClinica(Mascota mascota) {
+        System.out.println("\n=== HISTORIA CLÍNICA DE LA MASCOTA ===");
+        HistoriaClinica hc = mascota.getHistoriaClinica();
 
 
+        System.out.println("--- Consultas Médicas ---");
+        for (Consulta c : hc.getConsultas()) {
+            System.out.println("- Motivo: " + c.getMotivo());
+            System.out.println("  Diagnóstico: " + c.getDiagnostico());
+            System.out.println("  .........................");
+        }
+
+
+        System.out.println("--- Notas Rectificatorias ---");
+        for (NotaRectificatoria n : hc.getNotas()) {
+            System.out.println("- Fecha: " + n.getFecha() + " | Corrección: " + n.getTexto());
+        }
     }
 }
