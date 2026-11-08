@@ -33,10 +33,10 @@ public class MenuRecepcionista {
                 opcion = Integer.parseInt(scanner.nextLine().trim());
 
                 switch (opcion) {
-                    case 1 -> FacturacionView.generarFactura();
+                    case 1 -> new FacturacionView().generarFactura();
                     case 2 -> registroView.registrarCliente();
                     case 3 -> registroView.registrarMascota();
-                    case 0 -> System.exit(0);
+                    case 0 -> System.out.println("Volviendo al menú principal...");
                     default -> System.out.println("Opción inválida. Intente nuevamente.");
                 }
             } catch (NumberFormatException e) {

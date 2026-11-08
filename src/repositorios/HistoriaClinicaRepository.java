@@ -97,8 +97,7 @@ public class HistoriaClinicaRepository {
                 }
             } catch (IOException e) {
                 System.out.println("Error: " + e.getMessage());
-            } catch (PesoNoRegistradoException e) {
-                throw new RuntimeException(e);
+
             }
         }
     }

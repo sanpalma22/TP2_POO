@@ -13,13 +13,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FacturacionView {
-    private static FacturacionController controller;
-    private static Scanner scanner= new Scanner(System.in);
-    private static DuenioRepository repoDuenio=new DuenioRepository();
-    private static InsumoRepository repoInsumos;
+    // Inicializamos las variables directamente para evitar errores de NullPointerException
+    private FacturacionController controller = new FacturacionController();
+    private Scanner scanner = new Scanner(System.in);
+    private DuenioRepository repoDuenio = new DuenioRepository();
+    private InsumoRepository repoInsumos = new InsumoRepository();
 
-
-    public void cargaFactura( List<Insumo> inventarioInsumos) {
+    // Le cambiamos el nombre a "generarFactura" para que coincida con el Menú
+    public void generarFactura() {
         System.out.println("Nueva factura");
 
         // 1. Ingrese y busque al dueño por DNI
@@ -40,7 +41,7 @@ public class FacturacionView {
         System.out.println("3. Crédito");
         System.out.print("Opción: ");
         int opcionPago = scanner.nextInt();
-        scanner.nextLine();
+        scanner.nextLine(); // Limpiar el buffer
 
         MetodoPago metodoPago = switch (opcionPago) {
             case 1 -> MetodoPago.EFECTIVO;
@@ -56,7 +57,7 @@ public class FacturacionView {
         System.out.println("1. CONSULTA GENERAL");
         System.out.println("2. VACUNACIÓN");
         System.out.println("3. CIRUGÍA");
-        System.out.println("4. Compra de productos");
+        System.out.println("4. Solo compra de productos");
         System.out.print("Opción: ");
         int opcionAtencion = scanner.nextInt();
         scanner.nextLine();
@@ -74,7 +75,7 @@ public class FacturacionView {
         System.out.println("\nCARGA DE INSUMOS, VACUNAS Y MEDICAMENTOS");
         boolean fin = false;
         while (!fin) {
-            System.out.print("Desea agregar un insumo, vacuna o medicamento a la factura? (s/n): ");
+            System.out.print("¿Desea agregar un insumo, vacuna o medicamento a la factura? (s/n): ");
             String resp = scanner.nextLine();
 
             if (resp.equalsIgnoreCase("s")) {
@@ -88,7 +89,7 @@ public class FacturacionView {
                     int cant = scanner.nextInt();
                     scanner.nextLine();
                     controller.agregarInsumoAFactura(factura, prod, cant);
-                    System.out.println("item agregado a la factura");
+                    System.out.println("Ítem agregado a la factura.");
                 } else {
                     System.out.println("Error: Producto no encontrado.");
                 }
@@ -97,27 +98,22 @@ public class FacturacionView {
             }
         }
 
-        // 5. Cierre y Emisión
+        // Cierre y Emisión
         controller.finalizarFactura(factura);
 
         System.out.println("\nCarga finalizada. Imprimiendo comprobante...");
         controller.imprimirComprobante(factura);
     }
 
-    private static void mostrarInsumos() {
+    private void mostrarInsumos() {
         List<Insumo> lista = repoInsumos.cargarTodos();
-        System.out.println("Disponibles:");
-        for (Insumo i : lista) {
-            System.out.println("[" + i.getCodigo() + "] " + i.getNombre() + " - $" + i.getPrecioVenta());
-        }
-    }
-
-    private Duenio buscarClientePorDni(List<Duenio> lista, String dni) {
-        for (Duenio d : lista) {
-            if (d.getDocumento().equalsIgnoreCase(dni)) {
-                return d;
+        if (lista != null && !lista.isEmpty()) {
+            System.out.println("Disponibles:");
+            for (Insumo i : lista) {
+                System.out.println("[" + i.getCodigo() + "] " + i.getNombre() + " - $" + i.getPrecioVenta());
             }
+        } else {
+            System.out.println("No hay insumos registrados en la base de datos.");
         }
-        return null;
     }
 }
