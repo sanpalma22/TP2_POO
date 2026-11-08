@@ -81,4 +81,6 @@ public class Consulta {
     public Veterinario getVeterinario() {
         return veterinario;
     }
+
+
 }

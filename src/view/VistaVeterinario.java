@@ -87,6 +87,11 @@ public class VistaVeterinario {
                     gestor.finalizarConsulta(consultaActual);
                     break;
 
+                case 6:
+                    System.out.println("\n-- Consultando historia clínica --");
+                    gestor.mostrarHistoriaClinica(mascotaActual);
+                    break;
+
                 case 0:
                     System.out.println("Saliendo del menú...");
                     break;
