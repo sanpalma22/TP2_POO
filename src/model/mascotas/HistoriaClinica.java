@@ -11,9 +11,6 @@ public class HistoriaClinica {
     private Mascota mascota;
     private List<Consulta> consultas = new ArrayList<>();
 
-
-    private List<NotaRectificatoria> notas = new ArrayList<>();
-
     public HistoriaClinica(Mascota mascota) {
         this.mascota = mascota;
     }
@@ -36,11 +33,5 @@ public class HistoriaClinica {
         return new ArrayList<>(consultas);
     }
 
-    public void agregarNota(NotaRectificatoria n) {
-        notas.add(n);
-    }
 
-    public List<NotaRectificatoria> getNotas() {
-        return new ArrayList<>(notas);
-    }
 }

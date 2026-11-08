@@ -6,26 +6,30 @@ import model.enums.TipoAtencion;
 import model.facturacion.Factura;
 import model.personas.Duenio;
 import model.stock.Insumo;
+import repositorios.DuenioRepository;
+import repositorios.InsumoRepository;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class FacturacionView {
-    private FacturacionController controller;
-    private Scanner scanner;
+    private static FacturacionController controller;
+    private static Scanner scanner;
+    private static DuenioRepository repoDuenio;
+    private static InsumoRepository repoInsumos;
 
-    public FacturacionView(FacturacionController controller) {
-        this.controller = controller;
+    public FacturacionView() {
         this.scanner = new Scanner(System.in);
+        this.repoDuenio=new DuenioRepository();
     }
 
-    public void cargaFactura( List<Insumo> inventarioInsumos) {
+    public static void generarFactura() {
         System.out.println("Nueva factura");
 
         // 1. Ingrese y busque al dueño por DNI
         System.out.print("Ingrese el DNI del dueño: ");
         String dni = scanner.nextLine().trim();
-        Duenio cliente = buscarClientePorDni(clientes, dni);
+        Duenio cliente = repoDuenio.buscarPorDocumento(dni);
 
         if (cliente == null) {
             System.out.println("Error: No se encontró ningún cliente registrado con el DNI '" + dni + "'.");
@@ -78,10 +82,10 @@ public class FacturacionView {
             String resp = scanner.nextLine();
 
             if (resp.equalsIgnoreCase("s")) {
-                mostrarInsumos(inventarioInsumos);
+                mostrarInsumos();
                 System.out.print("Ingrese el código del producto/insumo: ");
                 String cod = scanner.nextLine();
-                Insumo prod = buscarInsumo(inventarioInsumos, cod);
+                Insumo prod = repoInsumos.buscarPorCodigo(cod);
 
                 if (prod != null) {
                     System.out.print("Cantidad: ");
@@ -104,14 +108,8 @@ public class FacturacionView {
         controller.imprimirComprobante(factura);
     }
 
-    private Insumo buscarInsumo(List<Insumo> lista, String codigo) {
-        for (Insumo i : lista) {
-            if (i.getCodigo().equalsIgnoreCase(codigo)) return i;
-        }
-        return null;
-    }
-
-    private void mostrarInsumos(List<Insumo> lista) {
+    private static void mostrarInsumos() {
+        List<Insumo> lista = repoInsumos.cargarTodos();
         System.out.println("Disponibles:");
         for (Insumo i : lista) {
             System.out.println("[" + i.getCodigo() + "] " + i.getNombre() + " - $" + i.getPrecioVenta());

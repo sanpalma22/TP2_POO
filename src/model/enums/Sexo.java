@@ -1,6 +1,6 @@
 package model.enums;
 
 public enum Sexo {
-    Macho,
-    Hembra,
+    MACHO,
+    HEMBRA,
 } //AGREGAR ESTE ENUM AL DIAGRAMA

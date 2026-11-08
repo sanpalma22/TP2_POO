@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
+import excepciones.PesoNoRegistradoException;
 import model.atencion.AplicacionVacuna;
 import model.atencion.Consulta;
 import model.atencion.Tratamiento;
@@ -92,6 +93,8 @@ public class HistoriaClinicaRepository {
                 }
             } catch (IOException e) {
                 System.out.println("Error: " + e.getMessage());
+            } catch (PesoNoRegistradoException e) {
+                throw new RuntimeException(e);
             }
         }
     }
