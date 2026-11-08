@@ -38,13 +38,15 @@ public class DuenioRepository {
             while ((linea = br.readLine()) != null) {
                 if (linea.trim().isEmpty()) continue;
                 String[] p = linea.split(";", -1);
-                String documento = p[0];
-                String nombre = p[1];
-                String apellido = p[2];
-                String telefono = p[3];
-                String email = p[4];
-                boolean planSalud = Boolean.parseBoolean(p[5]);
-                int ausencias = Integer.parseInt(p[6]);
+
+                // Acá está la magia: limpiamos espacios y el carácter invisible (BOM)
+                String documento = p[0].replace("\uFEFF", "").trim();
+                String nombre = p[1].trim();
+                String apellido = p[2].trim();
+                String telefono = p[3].trim();
+                String email = p[4].trim();
+                boolean planSalud = Boolean.parseBoolean(p[5].trim());
+                int ausencias = Integer.parseInt(p[6].trim());
 
                 Duenio duenio = new Duenio(nombre, apellido, documento, telefono, email, planSalud, ausencias);
                 lista.add(duenio);
