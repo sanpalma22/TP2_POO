@@ -18,7 +18,7 @@ public class HistoriaClinica {
     }
 
     public void agregarConsulta(Consulta c) { consultas.add(c); }
-    public List<Consulta> getConsultas() { return consultas; }
+    public List<Consulta> getConsultas() { return java.util.Collections.unmodifiableList(consultas); }
 
     public void agregarNota(NotaRectificatoria nota) {
         this.notas.add(nota);

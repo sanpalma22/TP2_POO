@@ -62,7 +62,7 @@ public class Factura {
             estrategia = new DtoEfectivo();
         } else if (metodoPago == MetodoPago.CREDITO) {
             estrategia = new RecargoCredito();
-        }else estrategia=null;
+        }else estrategia= new SinDescuento();
         if(estrategia!=null) {
             this.total = estrategia.calcularMontoFinal(subtotal);
             if (total < subtotal) {

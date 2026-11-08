@@ -87,7 +87,11 @@ public class HistoriaClinicaRepository {
                             System.out.println("Insumo no encontrado: " + p[1]);
                             continue;
                         }
-                        c.agregarTratamiento(new Tratamiento(med, p[2], p[3], p[4]));
+                        try {
+                            c.agregarTratamiento(new Tratamiento(med, p[2], p[3], p[4]));
+                        } catch (excepciones.PesoNoRegistradoException e) {
+                            System.out.println("Aviso al cargar historial: " + e.getMessage());
+                        }
                     }
                 }
             } catch (IOException e) {

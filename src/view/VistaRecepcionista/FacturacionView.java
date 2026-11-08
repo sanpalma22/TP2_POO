@@ -19,7 +19,7 @@ public class FacturacionView {
         this.scanner = new Scanner(System.in);
     }
 
-    public void cargaFactura( List<Insumo> inventarioInsumos) {
+    public void cargaFactura(List<Insumo> inventarioInsumos, List<Duenio> clientes) {
         System.out.println("Nueva factura");
 
         // 1. Ingrese y busque al dueño por DNI
@@ -116,5 +116,14 @@ public class FacturacionView {
         for (Insumo i : lista) {
             System.out.println("[" + i.getCodigo() + "] " + i.getNombre() + " - $" + i.getPrecioVenta());
         }
+    }
+
+    private Duenio buscarClientePorDni(List<Duenio> lista, String dni) {
+        for (Duenio d : lista) {
+            if (d.getDocumento().equalsIgnoreCase(dni)) {
+                return d;
+            }
+        }
+        return null;
     }
 }
