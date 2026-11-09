@@ -52,6 +52,11 @@ public class MascotaRepository {
     public List<Mascota> cargarTodas(Map<String, Duenio> dueniosPorDni) {
         List<Mascota> lista = new ArrayList<>();
         File archivo = new File(RUTA_MASCOTAS);
+
+        if (!archivo.exists()) {
+            return lista;
+        }
+
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             String linea;
             while ((linea = br.readLine()) != null) {
@@ -80,21 +85,26 @@ public class MascotaRepository {
                     case "PERRO" -> {
                         String chip = p[8];
                         Tamano tamano = Tamano.valueOf(p[9]);
-                        m = new Perro(duenio, nombre, raza, sexo, fechaNacimiento, peso, chip, tamano);
+                        m = new Perro(idMascota, duenio, nombre, raza, sexo, fechaNacimiento, peso, chip, tamano);
                     }
                     case "GATO" -> {
                         InteriorExterior habitat = InteriorExterior.valueOf(p[8]);
-                        m = new Gato(duenio, nombre, raza, sexo, fechaNacimiento, peso, habitat);
+                        m = new Gato(idMascota, duenio, nombre, raza, sexo, fechaNacimiento, peso, habitat);
                     }
                     case "AVE" -> {
                         boolean volador = Boolean.parseBoolean(p[8]);
-                        m = new Ave(duenio, nombre, raza, sexo, fechaNacimiento, peso, volador);
+                        m = new Ave(idMascota, duenio, nombre, raza, sexo, fechaNacimiento, peso, volador);
                     }
                     case "CONEJO" -> {
                         String chip = p[8];
                         Tamano tamano = Tamano.valueOf(p[9]);
-                        m = new Conejo(duenio, nombre, raza, sexo, fechaNacimiento, peso, chip, tamano);
+                        m = new Conejo(idMascota, duenio, nombre, raza, sexo, fechaNacimiento, peso, chip, tamano);
                     }
+                }
+                if (m != null) {
+                    lista.add(m);
+                } else {
+                    System.out.println("Tipo de mascota desconocido: " + tipo);
                 }
             }
         } catch (IOException e) {

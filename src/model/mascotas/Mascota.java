@@ -12,7 +12,6 @@ public abstract class Mascota {
     private static int contador = 0;
     private int idMascota;
     private String nombre;
-    private Especie especie;
     private String raza;
     private Sexo sexo;
     private LocalDate fechaNacimiento;
@@ -29,6 +28,18 @@ public abstract class Mascota {
         this.fechaNacimiento = fechaNacimiento;
         this.peso = peso;
         this.historiaClinica = new HistoriaClinica(this);
+    }
+
+    public Mascota(int idMascota, Duenio duenio, String nombre, String raza, Sexo sexo, LocalDate fechaNacimiento, int peso) {
+        this.idMascota = idMascota;
+        this.duenio = duenio;
+        this.nombre = nombre;
+        this.raza = raza;
+        this.sexo = sexo;
+        this.fechaNacimiento = fechaNacimiento;
+        this.peso = peso;
+        this.historiaClinica = new HistoriaClinica(this);
+        if (idMascota > contador) contador = idMascota;
     }
 
     public abstract String toLinea();
@@ -48,14 +59,15 @@ public abstract class Mascota {
         return fechaNacimiento;
     }
 
-    public Especie getEspecie() {
-        return especie;
-    }
 
     public abstract boolean esAptaParaVacuna(Vacuna v, LocalDate fecha);
 
-    public void setPeso(int pesoDia) {
+    public void setPeso(int peso) {
+        if (peso <= 0) throw new IllegalArgumentException("Peso inválido");
+        this.peso = peso;
     }
+
+    public abstract Especie getEspecie();
 
     public String getNombre() {
         return nombre;

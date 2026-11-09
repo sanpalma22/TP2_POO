@@ -26,8 +26,6 @@ public class Insumo {
         this.lotes = new ArrayList<>();
     }
 
-    public Insumo(String codigo, String nombre, int stockMinimo, int stockActual, double costo, double precioVenta, String proveedor) {
-    }
 
     // CU20: registrar ingreso de lote
     public void agregarLote(Lote l) {

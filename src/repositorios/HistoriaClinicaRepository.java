@@ -80,7 +80,7 @@ public class HistoriaClinicaRepository {
             try (BufferedReader br = new BufferedReader(new FileReader(RUTA_TRATAMIENTOS))) {
                 String linea;
                 while ((linea = br.readLine()) != null) {
-                    String[] p = linea.split(";");
+                    String[] p = linea.split(";", -1);
                     Consulta c = consultasPorId.get(Integer.parseInt(p[0]));
                     if (c != null) {   // null = es de otra mascota
                         Insumo med = insumosPorCodigo.get(p[1]);  // código → objeto

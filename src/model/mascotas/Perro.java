@@ -18,6 +18,15 @@ public class Perro extends Mascota{
         this.tamano = tamano;
     }
 
+    public Perro(int idMascota, Duenio duenio, String nombre, String raza, Sexo sexo, LocalDate fechaNacimiento, int peso, String numeroChip, Tamano tamano) {
+        super(idMascota, duenio, nombre, raza, sexo, fechaNacimiento, peso);
+        this.numeroChip = numeroChip;
+        this.tamano = tamano;
+    }
+
+    @Override
+    public Especie getEspecie() { return Especie.PERRO; }
+
     @Override
     public boolean esAptaParaVacuna(Vacuna v, LocalDate fecha){
         return (v.cumpleEdadMinima(this.getFechaNacimiento(), fecha) && v.getEspeciesAplicables().contains(Especie.PERRO));

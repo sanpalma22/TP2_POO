@@ -1,5 +1,6 @@
 package model.personas;
 
+import java.time.Duration;
 import java.time.LocalTime;
 public class FranjaHoraria {
     private LocalTime horaEntrada;
@@ -16,7 +17,7 @@ public class FranjaHoraria {
 
     public int minutosRestantes(LocalTime hora){
         if (contiene(hora)){
-            int minsRestantes = (horaSalida.getMinute() - hora.getMinute());
+            int minsRestantes = (int) Duration.between(hora, horaSalida).toMinutes();
             return minsRestantes;
         }
         else {
