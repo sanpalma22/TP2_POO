@@ -7,18 +7,17 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Historia clínica de una mascota (composición: nace con la mascota).
+ * Es la que crea las consultas (patrón Creador) y solo crece: los errores se corrigen
+ * con notas rectificatorias, no borrando consultas.
+ */
 public class HistoriaClinica {
     private Mascota mascota;
     private List<Consulta> consultas;
     private List<NotaRectificatoria> notas;
 
-    // Constructor vacío por si se crea sin asignarle la mascota de entrada
-    public HistoriaClinica() {
-        this.consultas = new ArrayList<>();
-        this.notas = new ArrayList<>();
-    }
-
-    // Constructor con mascota
+    // Se crea desde el constructor de Mascota (composición)
     public HistoriaClinica(Mascota mascota) {
         this.mascota = mascota;
         this.consultas = new ArrayList<>();
@@ -41,8 +40,8 @@ public class HistoriaClinica {
         return this.notas;
     }
 
+    // Patrón Creador: la historia contiene las consultas, por eso es quien las crea
     public Consulta crearConsulta(LocalDate fecha, String motivo, int pesoDia, String diagnostico, String observaciones) {
-        // Asumiendo que el constructor de Consulta recibe estos 5 parámetros en este orden
         Consulta c = new Consulta(fecha, motivo, pesoDia, diagnostico, observaciones);
         this.consultas.add(c);
         return c;

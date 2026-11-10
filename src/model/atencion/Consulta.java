@@ -7,6 +7,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Atención de una mascota: motivo, peso del día, diagnóstico, tratamientos y vacunas.
+ * La crea HistoriaClinica (patrón Creador). El id es autoincremental y se conserva al recargar.
+ */
 public class Consulta {
     private static int contador = 0;
     private final int idConsulta;
@@ -19,12 +23,13 @@ public class Consulta {
     private String observaciones;
     private Veterinario veterinario;
 
+    // Consulta nueva: el id sale del contador
     public Consulta(LocalDate fecha, String motivo, int pesoDia, String diagnostico, String observaciones){
         this(++contador, fecha, motivo, pesoDia, diagnostico, observaciones);
     }
 
 
-    //creamos un segundo constructor para que en historiaClinica al momneto de cargar la historia clinica de una mascota se cargue con el id que esta en el archivo.txt y no con un nuevo id
+    // Consulta cargada desde archivo: respeta el id guardado y deja el contador en el máximo
     public Consulta(int idConsulta, LocalDate fecha, String motivo, int pesoDia, String diagnostico, String observaciones){
         this.idConsulta = idConsulta;
         this.fecha = fecha;
@@ -69,6 +74,7 @@ public class Consulta {
         return observaciones;
     }
 
+    // No se indica medicamento sin el peso del día, porque la dosis depende de él
     public void agregarTratamiento(Tratamiento t) throws PesoNoRegistradoException {
         if (pesoDia <= 0) {
             throw new PesoNoRegistradoException("Registre el peso antes de indicar un medicamento");
@@ -77,6 +83,18 @@ public class Consulta {
     }
 
     public void agregarAplicacionVacuna(AplicacionVacuna v) { vacunas.add(v); }
+
+    // Solo un veterinario registra el diagnóstico: el parámetro es de tipo Veterinario,
+    // así que el compilador no deja pasar a otro tipo de persona
+    public void registrarDiagnostico(Veterinario veterinario, String diagnostico, String observaciones) {
+        this.veterinario = veterinario;
+        this.diagnostico = diagnostico;
+        this.observaciones = observaciones;
+    }
+
+    public void asignarVeterinario(Veterinario veterinario) {
+        this.veterinario = veterinario;
+    }
 
     public Veterinario getVeterinario() {
         return veterinario;

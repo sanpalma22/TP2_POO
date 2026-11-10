@@ -1,5 +1,10 @@
 package model.personas;
 
+/**
+ * Datos comunes a todo el personal y a los dueños. nombre y apellido son protected
+ * para que las subclases los usen al armar su línea de archivo. toLinea() es abstracto:
+ * cada tipo de persona sabe cómo guardarse.
+ */
 public abstract class Persona {
     protected String nombre;
     protected String apellido;
@@ -47,4 +52,6 @@ public abstract class Persona {
 
         this.telefono = telefono;
     }
+
+    public abstract String toLinea();
 }

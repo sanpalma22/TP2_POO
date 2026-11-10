@@ -8,6 +8,10 @@ import model.stock.Insumo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Factura de una atención. Calcula el subtotal con sus líneas (Experto en Información)
+ * y elige la estrategia de descuento o recargo según el cliente y el medio de pago.
+ */
 public class Factura {
     private String numero;
     private static int contFacturas = 1;

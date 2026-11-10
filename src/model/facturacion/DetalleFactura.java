@@ -3,6 +3,9 @@ package model.facturacion;
 import model.enums.TipoAtencion;
 import model.stock.Insumo;
 
+/**
+ * Línea de una factura: un servicio (TipoAtencion) o un producto (Insumo), con cantidad e importe.
+ */
 public class DetalleFactura {
     private int nro;
     private TipoAtencion servicio;

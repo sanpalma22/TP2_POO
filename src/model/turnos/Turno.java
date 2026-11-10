@@ -9,6 +9,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+/**
+ * Turno de una mascota con un veterinario. La duración sale del tipo de atención.
+ * Sabe si se superpone con otro turno y cuánto se cobra si se cancela tarde.
+ * Su orden natural (Comparable) es por fecha y hora.
+ */
 public class Turno implements Comparable<Turno> {
     private static int contador = 0;
     private int idTurno;
@@ -20,15 +25,23 @@ public class Turno implements Comparable<Turno> {
     private EstadoTurno estado;
     private boolean urgente;
 
+    // Turno nuevo: genera el id y arranca PROGRAMADO
     public Turno(Mascota mascota, Veterinario veterinario, LocalDate fecha, LocalTime hora, TipoAtencion tipoAtencion, boolean urgente) {
-        this.idTurno = ++contador;
+        this(++contador, mascota, veterinario, fecha, hora, tipoAtencion, EstadoTurno.PROGRAMADO, urgente);
+    }
+
+    // Turno cargado desde archivo: respeta id y estado guardados
+    public Turno(int idTurno, Mascota mascota, Veterinario veterinario, LocalDate fecha, LocalTime hora,
+                 TipoAtencion tipoAtencion, EstadoTurno estado, boolean urgente) {
+        this.idTurno = idTurno;
         this.mascota = mascota;
         this.veterinario = veterinario;
         this.fecha = fecha;
         this.hora = hora;
         this.tipoAtencion = tipoAtencion;
-        this.estado = EstadoTurno.PROGRAMADO;
+        this.estado = estado;
         this.urgente = urgente;
+        if (idTurno > contador) contador = idTurno;
     }
 
 
@@ -83,4 +96,15 @@ public class Turno implements Comparable<Turno> {
     public TipoAtencion getTipoAtencion() { return tipoAtencion; }
     public EstadoTurno getEstado() { return estado; }
     public boolean isUrgente() { return urgente; }
+
+    // Cancelación por causa de la clínica (por ejemplo, una urgencia): nunca tiene cargo
+    public void cancelarSinCargo() { this.estado = EstadoTurno.CANCELADO; }
+
+    public boolean estaProgramado() { return estado == EstadoTurno.PROGRAMADO; }
+
+    // Formato: idTurno;idMascota;documentoVet;fecha;hora;TIPO;ESTADO;urgente
+    public String toLinea() {
+        return idTurno + ";" + mascota.getIdMascota() + ";" + veterinario.getDocumento() + ";" + fecha + ";"
+                + hora + ";" + tipoAtencion + ";" + estado + ";" + urgente;
+    }
 }

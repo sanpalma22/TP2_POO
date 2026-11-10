@@ -2,6 +2,10 @@ package model.personas;
 
 import java.time.Duration;
 import java.time.LocalTime;
+
+/**
+ * Horario de atención de un día: hora de entrada y de salida.
+ */
 public class FranjaHoraria {
     private LocalTime horaEntrada;
     private LocalTime horaSalida;

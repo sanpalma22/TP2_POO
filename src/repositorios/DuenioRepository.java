@@ -4,12 +4,18 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.mascotas.Mascota;
 import model.personas.Duenio;
 
+/**
+ * Persistencia de dueños en datos/duenios.txt. Está separada de Duenio por
+ * Responsabilidad Única: si cambia el formato del archivo, el modelo no se toca.
+ */
 public class DuenioRepository {
     private static final String RUTA_DUENIOS = "datos/duenios.txt";
 
 
+    // Alta de un dueño nuevo: se agrega al final del archivo
     public void guardar(Duenio d) {
         // Verificar que el directorio "datos" exista
         File directorio = new File("datos");
@@ -22,6 +28,18 @@ public class DuenioRepository {
             bw.newLine();
         } catch (IOException e) {
             System.out.println("Error al guardar el dueño: " + e.getMessage());
+        }
+    }
+
+    // Reescribe el archivo completo (por ejemplo, cuando cambian las ausencias)
+    public void guardarTodos(List<Duenio> duenios) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(RUTA_DUENIOS, false))) {
+            for (Duenio d : duenios) {
+                bw.write(d.toLinea());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error al sobrescribir los dueños: " + e.getMessage());
         }
     }
 
@@ -39,7 +57,6 @@ public class DuenioRepository {
                 if (linea.trim().isEmpty()) continue;
                 String[] p = linea.split(";", -1);
 
-                // Acá está la magia: limpiamos espacios y el carácter invisible (BOM)
                 String documento = p[0].replace("\uFEFF", "").trim();
                 String nombre = p[1].trim();
                 String apellido = p[2].trim();
@@ -57,14 +74,5 @@ public class DuenioRepository {
 
         return lista;
     }
-    
-    public Duenio buscarPorDocumento(String documento) {
-        List<Duenio> todos = cargarTodos();
-        for (Duenio d : todos) {
-            if (d.getDocumento().equalsIgnoreCase(documento)) {
-                return d;
-            }
-        }
-        return null;
-    }
+
 }

@@ -7,10 +7,38 @@ import model.facturacion.ImpresionFactura;
 import model.personas.Duenio;
 import model.stock.Insumo;
 
-public class FacturacionController {
+import java.util.List;
+
+/**
+ * Controlador de facturación (CU04). Arma la factura paso a paso a pedido de la vista;
+ * el cálculo de descuentos y recargos lo resuelve Factura con el patrón Strategy (CU05).
+ */
+public class GestorFacturacion {
+    private final GestorClientes gestorClientes;
+    private final List<Insumo> insumos;
+
+    public GestorFacturacion(GestorClientes gestorClientes, List<Insumo> insumos) {
+        this.gestorClientes = gestorClientes;
+        this.insumos = insumos;
+    }
+
+    public Duenio buscarCliente(String dni) {
+        return gestorClientes.buscarDuenio(dni);   // delega: no duplica la búsqueda
+    }
+
+    public Insumo buscarInsumo(String codigo) {
+        for (Insumo i : insumos) {
+            if (i.getCodigo().equalsIgnoreCase(codigo.trim())) return i;
+        }
+        return null;
+    }
+
+    public List<Insumo> getInsumos() {
+        return insumos;
+    }
 
     /**
-     * Paso 1: Inicia la factura con el cliente y método de pago seleccionados por el recepcionista.
+     * Paso 1: crea la factura con el cliente y el medio de pago.
      */
     public Factura iniciarFactura(Duenio cliente, MetodoPago metodoPago) {
         if (cliente == null || metodoPago == null) {
@@ -20,7 +48,7 @@ public class FacturacionController {
     }
 
     /**
-     * Paso 2a: Agrega un servicio de atención (Consulta General, Vacunación, Cirugía) desde la View.
+     * Paso 2a: agrega un servicio (consulta general, vacunación o cirugía).
      */
     public void agregarServicioAFactura(Factura factura, TipoAtencion servicio) {
         if (factura != null && servicio != null) {
@@ -29,7 +57,7 @@ public class FacturacionController {
     }
 
     /**
-     * Paso 2b: Agrega un insumo o vacuna como producto desde la View.
+     * Paso 2b: agrega un producto con su cantidad.
      */
     public void agregarInsumoAFactura(Factura factura, Insumo producto, int cantidad) {
         if (factura != null && producto != null && cantidad > 0) {
@@ -38,7 +66,7 @@ public class FacturacionController {
     }
 
     /**
-     * Paso 3: Finaliza la factura (calcula subtotales, aplica descuentos/recargos) y la guarda en el historial.
+     * Paso 3: cierra la factura: calcula el subtotal y aplica el descuento o recargo.
      */
     public void finalizarFactura(Factura factura) {
         if (factura != null) {
@@ -47,7 +75,7 @@ public class FacturacionController {
     }
 
     /**
-     * Paso 4: Imprime la factura procesada.
+     * Paso 4: imprime el comprobante.
      */
     public void imprimirComprobante(Factura factura) {
         ImpresionFactura.imprimirFactura(factura);

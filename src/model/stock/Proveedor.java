@@ -1,5 +1,8 @@
 package model.stock;
 
+/**
+ * Proveedor de insumos. Se identifica por CUIT, que es lo que guardan los insumos en el archivo.
+ */
 public class Proveedor {
     private String cuit;
     private String razonSocial;

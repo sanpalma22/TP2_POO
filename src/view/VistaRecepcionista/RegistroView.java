@@ -1,5 +1,6 @@
 package view.VistaRecepcionista;
 
+import controller.GestorClientes;
 import model.enums.InteriorExterior;
 import model.enums.Sexo;
 import model.enums.Tamano;
@@ -13,15 +14,16 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Pantalla de alta de dueños y mascotas (CU09). Pide los datos y delega en GestorClientes.
+ */
 public class RegistroView {
     private final Scanner scanner;
-    private final DuenioRepository duenioRepo;
-    private final MascotaRepository mascotaRepo;
+    private GestorClientes gestor;
 
-    public RegistroView(DuenioRepository duenioRepo, MascotaRepository mascotaRepo) {
-        this.scanner = new Scanner(System.in);
-        this.duenioRepo = duenioRepo;
-        this.mascotaRepo = mascotaRepo;
+    public RegistroView(Scanner scanner, GestorClientes gestor) {
+        this.scanner = scanner;
+        this.gestor = gestor;
     }
 
     /**
@@ -34,14 +36,6 @@ public class RegistroView {
 
         System.out.print("Ingrese DNI/Documento: ");
         String dni = scanner.nextLine().trim();
-
-        // Validar si ya existe
-        for (Duenio d : duenioRepo.cargarTodos()) {
-            if (d.getDocumento().equalsIgnoreCase(dni)) {
-                System.out.println("Error: Ya existe un cliente registrado con el DNI " + dni);
-                return;
-            }
-        }
 
         System.out.print("Ingrese Nombre: ");
         String nombre = scanner.nextLine().trim();
@@ -58,12 +52,12 @@ public class RegistroView {
         System.out.print("¿Posee Plan de Salud Animal? (s/n): ");
         boolean planSalud = scanner.nextLine().trim().equalsIgnoreCase("s");
 
-        Duenio nuevoDuenio = new Duenio(nombre, apellido, dni, telefono, email, planSalud, 0);
-
-        // Guardar en memoria y persistir en el repositorio
-        duenioRepo.guardar(nuevoDuenio);
-
-        System.out.println("✅ Cliente " + nombre + " " + apellido + " registrado y guardado con éxito.");
+        try {
+            gestor.registrarDuenio(nombre, apellido, dni, telefono, email, planSalud);
+            System.out.println("Cliente " + nombre + " " + apellido + " registrado con éxito.");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
     /**
@@ -77,13 +71,7 @@ public class RegistroView {
         System.out.print("Ingrese el DNI del dueño responsable: ");
         String dni = scanner.nextLine().trim();
 
-        Duenio duenio = null;
-        for (Duenio d : duenioRepo.cargarTodos()) {
-            if (d.getDocumento().equalsIgnoreCase(dni)) {
-                duenio = d;
-                break;
-            }
-        }
+        Duenio duenio = gestor.buscarDuenio(dni);
 
         if (duenio == null) {
             System.out.println("Error: No se encontró ningún cliente registrado con el DNI " + dni);
@@ -148,14 +136,11 @@ public class RegistroView {
                 Tamano tamano = seleccionarTamano();
                 nuevaMascota = new Conejo(duenio, nombre, raza, sexo, fechaNacimiento, peso, chip, tamano);
             }
-            default -> {
-                System.out.println("Especie no válida.");
-                return;
-            }
+            default -> System.out.println("Especie no válida.");
         }
 
         if (nuevaMascota != null) {
-            mascotaRepo.guardar(nuevaMascota);
+            gestor.registrarMascota(nuevaMascota);
             System.out.println("Mascota " + nombre + " registrada y asignada correctamente a " + duenio.getNombre());
         }
     }

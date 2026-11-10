@@ -1,5 +1,9 @@
 package model.facturacion;
 
+/**
+ * Muestra una factura por consola. Está separada de Factura por Responsabilidad Única:
+ * la factura calcula, esta clase presenta.
+ */
 public class ImpresionFactura {
     public static void imprimirFactura(Factura factura) {
         if (factura == null) {

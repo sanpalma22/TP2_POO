@@ -8,6 +8,9 @@ import model.personas.Duenio;
 
 import java.time.LocalDate;
 
+/**
+ * Ave. Dato propio: si puede volar.
+ */
 public class Ave extends Mascota{
     private boolean volador;
 

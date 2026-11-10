@@ -1,11 +1,15 @@
 package model.atencion;
 
-import model.enums.Especie;   // ajusten al paquete donde tengan el enum
+import model.enums.Especie;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Vacuna del catálogo: especies a las que se aplica, edad mínima e intervalo de refuerzo.
+ * Es experta en calcular el próximo refuerzo y en validar especie y edad.
+ */
 public class Vacuna {
     private String nombre;
     private String laboratorio;
@@ -31,12 +35,12 @@ public class Vacuna {
         return fechaAplicacion.plusDays(intervaloRefuerzoDias);
     }
 
-    // CU10 - A1: especie compatible
+    // CU10: la vacuna tiene que corresponder a la especie
     public boolean aplicaAEspecie(Especie especie) {
         return especiesAplicables.contains(especie);
     }
 
-    // CU10 - A2: edad mínima
+    // CU10: la mascota tiene que tener la edad mínima
     public boolean cumpleEdadMinima(LocalDate fechaNacimiento, LocalDate fechaAplicacion) {
         long meses = ChronoUnit.MONTHS.between(fechaNacimiento, fechaAplicacion);
         return meses >= edadMinMeses;

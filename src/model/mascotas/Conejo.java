@@ -9,6 +9,9 @@ import model.personas.Duenio;
 
 import java.time.LocalDate;
 
+/**
+ * Conejo. Datos propios: número de chip y tamaño.
+ */
 public class Conejo extends Mascota{
     private String numeroChip;
     private Tamano tamano;

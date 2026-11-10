@@ -1,5 +1,8 @@
 package model.enums;
 
+/**
+ * Tipos de atención. Cada uno define cuánto dura el turno (en minutos) y cuánto se cobra.
+ */
 public enum TipoAtencion {
     CONSULTA_GRAL(15000.0,30),
     VACUNACION(15000.0,15),

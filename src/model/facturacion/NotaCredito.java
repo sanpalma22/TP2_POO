@@ -2,6 +2,9 @@ package model.facturacion;
 
 import java.time.LocalDate;
 
+/**
+ * Anula una factura sin modificarla, porque una factura emitida no se cambia (CU14).
+ */
 public class NotaCredito {
     private String numeroFactura;
     private LocalDate fecha;

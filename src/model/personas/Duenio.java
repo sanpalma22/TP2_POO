@@ -5,6 +5,10 @@ import model.mascotas.Mascota;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Dueño de mascotas. Lleva la cuenta de ausencias seguidas:
+ * con tres debe pagar seña para pedir turno (CU19).
+ */
 public class Duenio extends Persona {
     private String email;
     private boolean planSalud;
@@ -36,6 +40,11 @@ public class Duenio extends Persona {
         return planSalud;
     }
 
+    public int getAusenciasConsecutivas() {
+        return ausenciasConsecutivas;
+    }
+
+    @Override
     public String toLinea(){
         return getDocumento() + ";" + nombre + ";" + apellido + ";" +getTelefono() + ";" + email + ";" +planSalud + ";" +ausenciasConsecutivas;
     }

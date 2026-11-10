@@ -13,11 +13,17 @@ import model.mascotas.Mascota;
 import model.stock.Insumo;
 
 
+/**
+ * Persistencia de la historia clínica en tres archivos: consultas, tratamientos y vacunas
+ * aplicadas, unidos por idConsulta. Usa append (agregar al final) porque la historia
+ * solo crece: nada se borra ni se modifica.
+ */
 public class HistoriaClinicaRepository {
     private static final String RUTA_CONSULTAS = "datos/historiaClinica.txt";
     private static final String RUTA_TRATAMIENTOS = "datos/tratamientos.txt";
     private static final String RUTA_VACUNASAPLICACION = "datos/vacunasAplicacion.txt";
 
+    // Se llama una sola vez, al finalizar la consulta, para no duplicar registros
     public void guardarConsulta(int idMascota, Consulta c) {
         try (BufferedWriter bwC = new BufferedWriter(new FileWriter(RUTA_CONSULTAS, true));
              BufferedWriter bwT = new BufferedWriter(new FileWriter(RUTA_TRATAMIENTOS, true));
@@ -25,13 +31,13 @@ public class HistoriaClinicaRepository {
             bwC.write(idMascota + ";" + c.getIdConsulta() + ";" + c.getFecha() + ";" + c.getMotivo() + ";" + c.getPesoDia() + ";" + c.getDiagnostico() + ";" + c.getObservaciones());
             bwC.newLine();
 
-            // 2. Sus tratamientos (0, 1 o varios)
+            // Una línea por tratamiento, con el idConsulta para poder unirlos al cargar
             for (Tratamiento t : c.getTratamientos()) {
                 bwT.write(c.getIdConsulta() + ";" + t.getMedicamento().getCodigo() + ";" + t.getDosis() + ";" + t.getFrecuencia() + ";" + t.getDuracion());
                 bwT.newLine();
             }
 
-            // 3. Sus vacunasAplicacion (0, 1 o varios)
+            // Una línea por vacuna aplicada, también con el idConsulta
             for (AplicacionVacuna a: c.getVacunas()) {
                 bwV.write(c.getIdConsulta() + ";" + a.getVacuna().getNombre() + ";" + a.getFecha() + ";"
                         + a.getFechaRefuerzo() + ";" + a.getLote());
@@ -42,20 +48,19 @@ public class HistoriaClinicaRepository {
         }
     }
 
+    // Carga en tres pasos: las consultas de la mascota y después sus tratamientos y vacunas
     public void cargar(Mascota m, Map<String, Insumo> insumosPorCodigo, Map<String, Vacuna> vacunasPorNombre) {
         Map<Integer, Consulta> consultasPorId = cargarConsultas(m);
 
-        // le cargamos los tratamientos a esas consulta con el id de la consulta que guardamos
         cargarTratamientosConsultas(insumosPorCodigo, consultasPorId);
 
-        // le cargamos las vacunasAplicadas a esas consulta con el id de la consulta que guardamos
         cargarVacunasAplicadasConsultas(vacunasPorNombre, consultasPorId);
     }
 
     private Map<Integer, Consulta> cargarConsultas(Mascota m){
         int idMascota = m.getIdMascota();
         Map<Integer, Consulta> consultasPorId = new HashMap<>();
-        // Cargamos las consultas y en un diccionario guardamos el id y la consulta para despues poder cargarle a las consultas los tratamientos de la misma
+        // Cada consulta se guarda en un Map por id para después engancharle tratamientos y vacunas
         if (new File(RUTA_CONSULTAS).exists()) {
             try (BufferedReader br = new BufferedReader(new FileReader(RUTA_CONSULTAS))) {
                 String linea;
@@ -74,16 +79,16 @@ public class HistoriaClinicaRepository {
         return consultasPorId;
     }
 
+    // Lee todos los tratamientos y se queda con los de las consultas de esta mascota
     private void cargarTratamientosConsultas(Map<String, Insumo> insumosPorCodigo, Map<Integer, Consulta> consultasPorId){
-        // le cargamos los tratamientos a esas consulta con el id de la consulta que guardamos
         if (new File(RUTA_TRATAMIENTOS).exists()) {
             try (BufferedReader br = new BufferedReader(new FileReader(RUTA_TRATAMIENTOS))) {
                 String linea;
                 while ((linea = br.readLine()) != null) {
                     String[] p = linea.split(";", -1);
                     Consulta c = consultasPorId.get(Integer.parseInt(p[0]));
-                    if (c != null) {   // null = es de otra mascota
-                        Insumo med = insumosPorCodigo.get(p[1]);  // código → objeto
+                    if (c != null) {   // null: es de una consulta de otra mascota
+                        Insumo med = insumosPorCodigo.get(p[1]);  // el archivo guarda el código; acá se busca el objeto
                         if (med == null) {
                             System.out.println("Insumo no encontrado: " + p[1]);
                             continue;
@@ -102,16 +107,16 @@ public class HistoriaClinicaRepository {
         }
     }
 
+    // Igual que los tratamientos, pero con las vacunas aplicadas
     private void cargarVacunasAplicadasConsultas(Map<String, Vacuna> vacunasPorNombre, Map<Integer, Consulta> consultasPorId){
-        // le cargamos las vacunasAplicadas a esas consulta con el id de la consulta que guardamos
         if (new File(RUTA_VACUNASAPLICACION).exists()) {
             try (BufferedReader br = new BufferedReader(new FileReader(RUTA_VACUNASAPLICACION))) {
                 String linea;
                 while ((linea = br.readLine()) != null) {
                     String[] p = linea.split(";", -1);
                     Consulta c = consultasPorId.get(Integer.parseInt(p[0]));
-                    if (c != null) {   // null = es de otra mascota
-                        Vacuna vac = vacunasPorNombre.get(p[1]);  // nombre → objeto
+                    if (c != null) {   // null: es de una consulta de otra mascota
+                        Vacuna vac = vacunasPorNombre.get(p[1]);  // el archivo guarda el nombre; acá se busca el objeto
                         if (vac == null) {
                             System.out.println("Vacuna no encontrada: " + p[1]);
                             continue;

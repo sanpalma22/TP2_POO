@@ -9,6 +9,9 @@ import model.personas.Duenio;
 
 import java.time.LocalDate;
 
+/**
+ * Gato. Dato propio: si vive en interior o exterior.
+ */
 public class Gato extends Mascota{
     private InteriorExterior habitat;
 

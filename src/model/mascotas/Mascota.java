@@ -6,8 +6,13 @@ import model.enums.Sexo;
 import model.personas.Duenio;
 
 import java.time.LocalDate;
-//HAY QUE AGREGAR HISTORIACLINICA COMO ATRIBUTO EN EL DIAGRAMA DE CLASE
-//TAMBIEN HAY QUE AGREGAR EL ATRIBUTO DUENIO PARA SABER CUAL ES EL DUENIO DE LA MASCOTA
+
+/**
+ * Clase abstracta de las mascotas. Cada especie (Perro, Gato, Ave, Conejo) define su
+ * especie y su regla de vacunación sobrescribiendo los métodos abstractos (polimorfismo y
+ * principio de Liskov: cualquier subclase se usa donde se espera una Mascota).
+ * El id es autoincremental y se conserva al recargar desde archivo.
+ */
 public abstract class Mascota {
     private static int contador = 0;
     private int idMascota;

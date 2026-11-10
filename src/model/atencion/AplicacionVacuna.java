@@ -2,6 +2,10 @@ package model.atencion;
 
 import java.time.LocalDate;
 
+/**
+ * Vacuna aplicada en una consulta: fecha, lote y fecha del próximo refuerzo.
+ * Sabe si hay que avisarle al dueño o si ya está vencida (Experto en Información).
+ */
 public class AplicacionVacuna {
     private Vacuna vacuna;
     private LocalDate fecha;

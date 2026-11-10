@@ -2,6 +2,10 @@ package model.stock;
 
 import java.time.LocalDate;
 
+/**
+ * Lote de un insumo con su fecha de vencimiento. Su orden natural (Comparable) es
+ * por vencimiento: así el insumo consume primero el lote que vence antes.
+ */
 public class Lote implements Comparable<Lote> {
     private String numeroLote;
     private LocalDate fechaIngreso;
@@ -9,12 +13,12 @@ public class Lote implements Comparable<Lote> {
     private int cantidadInicial;
     private int stockLote;
 
-    // Lote nuevo: el model.stock arranca igual a la cantidad recibida
+    // Lote nuevo: el stock arranca igual a la cantidad recibida
     public Lote(String numeroLote, LocalDate fechaIngreso, LocalDate fechaVto, int cantidadInicial) {
         this(numeroLote, fechaIngreso, fechaVto, cantidadInicial, cantidadInicial);
     }
 
-    // Lote cargado desde archivo: respeta el model.stock guardado
+    // Lote cargado desde archivo: respeta el stock guardado
     public Lote(String numeroLote, LocalDate fechaIngreso, LocalDate fechaVto,
                 int cantidadInicial, int stockLote) {
         if (cantidadInicial <= 0) {

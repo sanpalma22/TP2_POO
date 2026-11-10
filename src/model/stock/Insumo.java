@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Medicamento o insumo. El stock no se guarda como número: se calcula sumando
+ * los lotes no vencidos, así nunca queda desactualizado (Experto en Información).
+ */
 public class Insumo {
     private String codigo;
     private String nombre;
@@ -35,12 +39,12 @@ public class Insumo {
         lotes.add(l);
     }
 
-    //cuando el repository reconstruye un lote que ya estaba guardado. No valida nada, solo lo agrega
+    // Para reconstruir desde archivo: no valida, porque el lote ya se validó cuando ingresó
     public void cargarLote(Lote l) {
         lotes.add(l);
     }
 
-    // Experto en Información: Stock.Insumo conoce sus lotes
+    // Experto en Información: el insumo conoce sus lotes
     public Lote loteProximoAVencer() {
         return lotes.stream()
                 .filter(l -> !l.estaVencido() && l.getStockLote() > 0)
@@ -71,7 +75,7 @@ public class Insumo {
         }
         return total;
     }
-    // Experto en Información: tiene model.stock actual y mínimo
+    // Experto en Información: conoce su stock y su mínimo (CU07)
     public boolean estaEnStockBajo() {
         return stockDisponible() <= stockMinimo;
     }

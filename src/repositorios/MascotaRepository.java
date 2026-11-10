@@ -12,11 +12,15 @@ import model.enums.Tamano;
 import model.mascotas.*;
 import model.personas.Duenio;
 
+/**
+ * Persistencia de mascotas en datos/mascotas.txt. El primer campo de cada línea
+ * indica la especie, y con eso se decide qué subclase crear al cargar.
+ */
 public class MascotaRepository {
     private static final String RUTA_MASCOTAS = "datos/mascotas.txt";
 
     /**
-     * Guarda una nueva mascota al final del archivo mascotas.txt.
+     * Alta de una mascota nueva: se agrega al final del archivo.
      */
     public void guardar(Mascota m) {
         File directorio = new File("datos");
@@ -33,7 +37,7 @@ public class MascotaRepository {
     }
 
     /**
-     * Guarda/sobrescribe todas las mascotas (útil cuando una mascota cambia de dueño).
+     * Reescribe el archivo completo. Se usa cuando cambia una mascota ya guardada (peso o dueño).
      */
     public void guardarTodas(List<Mascota> mascotas) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(RUTA_MASCOTAS, false))) {
@@ -81,6 +85,7 @@ public class MascotaRepository {
 
                 Mascota m = null;
 
+                // El tipo decide qué subclase crear; se usa el constructor con id para conservarlo
                 switch (tipo.toUpperCase()) {
                     case "PERRO" -> {
                         String chip = p[8];
