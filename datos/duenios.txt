@@ -1,1 +1,3 @@
-47490026;Santiago;Palma;1212312312;aspdaspd;true;0
+40111222;Ana;Paz;1155551111;ana@mail.com;true;0
+40333444;Juan;Pérez;1155552222;juan@mail.com;false;2
+40555666;Carla;Méndez;1155553333;carla@mail.com;false;0

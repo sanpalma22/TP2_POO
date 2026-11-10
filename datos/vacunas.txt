@@ -1,0 +1,4 @@
+Antirrábica;Biogénesis Bagó;PERRO,GATO;3;365;3000.0;6000.0
+Séxtuple;Zoetis;PERRO;2;365;4000.0;8000.0
+Triple Felina;Zoetis;GATO;2;365;3500.0;7000.0
+Mixomatosis;Ovejero;CONEJO;2;180;2500.0;5000.0

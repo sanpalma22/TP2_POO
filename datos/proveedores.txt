@@ -1,0 +1,2 @@
+30-11111111-1;Droguería Sur;Av. Rivadavia 1234;ventas@drogsur.com;1144445555
+30-22222222-2;VetPharma SA;Calle Falsa 123;pedidos@vetpharma.com;1166667777
